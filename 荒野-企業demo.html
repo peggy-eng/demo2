@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業合作</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        /* Banner 區域 */
+        .banner {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .banner h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 切換按鈕區域 */
+        .toggle-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+
+        .toggle-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border: 3px solid #2ecc71;
+            background: white;
+            color: #2ecc71;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            border-color: #27ae60;
+        }
+
+        /* 活動選單和介紹區域 */
+        .content-section {
+            display: none;
+            padding: 40px;
+            background: #fff;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* 標籤式選單 */
+        .tab-menu {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .tab-item {
+            padding: 12px 30px;
+            background: #f8f9fa;
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+
+        .tab-item:hover {
+            background: #e8f5e9;
+        }
+
+        .tab-item.active {
+            background: #2ecc71;
+            color: white;
+            border-color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* 活動介紹 */
+        .activity-intro {
+            width: 100%;
+        }
+
+        .intro-item {
+            display: none;
+        }
+
+        .intro-item.active {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .intro-image {
+            flex: 0 0 400px;
+            height: 300px;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
+
+        .intro-text {
+            flex: 1;
+        }
+
+        .intro-item h2 {
+            color: #2ecc71;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .intro-item p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        /* 推廣邀約專用樣式 */
+        .promotion-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .promotion-content h2 {
+            color: #2ecc71;
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .promotion-text {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 15px;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .promotion-text p {
+            font-size: 18px;
+            line-height: 2;
+            color: #495057;
+            margin-bottom: 25px;
+        }
+
+        .promotion-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-text {
+            font-size: 20px !important;
+            font-weight: bold;
+            color: #2ecc71 !important;
+            text-align: center;
+            margin-top: 30px !important;
+        }
+
+        /* 分隔線 */
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2ecc71, transparent);
+            margin: 40px 0;
+        }
+
+        /* 篩選 Bar */
+        .filter-section {
+            padding: 30px 40px;
+            background: #f8f9fa;
+        }
+
+        .filter-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2ecc71;
+            margin-bottom: 20px;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            color: #495057;
+            font-size: 16px;
+        }
+
+        .filter-select {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #2ecc71;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+        }
+
+        /* 卡片列表 */
+        .cards-container {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid #e9ecef;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #212529;
+            margin-bottom: 10px;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #6c757d;
+            flex-wrap: wrap;
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-description {
+            font-size: 16px;
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+            font-size: 18px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .intro-item.active {
+                flex-direction: column;
+            }
+
+            .intro-image {
+                flex: 1;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .banner h1 {
+                font-size: 32px;
+            }
+
+            .toggle-buttons {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .toggle-btn {
+                width: 100%;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            .intro-item h2 {
+                font-size: 24px;
+            }
+
+            .intro-image {
+                height: 200px;
+                font-size: 32px;
+            }
+
+            .tab-menu {
+                flex-direction: column;
+            }
+
+            .tab-item {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Banner 區域 -->
+        <div class="banner">
+            <h1>企業合作</h1>
+        </div>
+
+        <!-- 切換按鈕區域 -->
+        <div class="toggle-buttons">
+            <button class="toggle-btn active" data-type="longterm" onclick="switchType('longterm')">
+                中長期專案
+            </button>
+            <button class="toggle-btn" data-type="volunteer" onclick="switchType('volunteer')">
+                志工體驗
+            </button>
+            <button class="toggle-btn" data-type="promotion" onclick="switchType('promotion')">
+                推廣邀約
+            </button>
+        </div>
+
+        <!-- 中長期專案內容區 -->
+        <div class="content-section active" id="content-longterm">
+            <div class="tab-menu">
+                <div class="tab-item active" onclick="switchActivity('longterm', 'earth')">
+                    地球守護行動
+                </div>
+                <div class="tab-item" onclick="switchActivity('longterm', 'ocean')">
+                    海洋守護行動
+                </div>
+                <div class="tab-item" onclick="switchActivity('longterm', 'habitat')">
+                    棲地關注
+                </div>
+            </div>
+
+            <div class="activity-intro">
+                <!-- 地球守護行動 -->
+                <div class="intro-item active" id="intro-longterm-earth">
+                    <div class="intro-image"></div>
+                    <div class="intro-text">
+                        <h2>地球守護行動</h2>
+                        <p>
+                            地球守護行動是一項全方位的環境保護專案，致力於應對氣候變遷、減少碳排放，並推動永續發展目標。我們與企業合作，共同打造綠色未來，透過專業的碳中和諮詢、環境教育培訓、綠色供應鏈建置等服務，協助企業建立完善的環境管理系統。不僅善盡企業社會責任，更能提升品牌形象與市場競爭力，為地球永續發展貢獻實質力量。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 海洋守護行動 -->
+                <div class="intro-item" id="intro-longterm-ocean">
+                    <div class="intro-image"></div>
+                    <div class="intro-text">
+                        <h2>海洋守護行動</h2>
+                        <p>
+                            海洋守護行動專注於海洋生態保育與海洋污染防治，與企業攜手守護珍貴的海洋資源，確保海洋生態的永續發展。透過海洋廢棄物監測清除、海洋生物多樣性保育研究、減塑行動推廣等計畫，我們協助企業建立海洋友善的營運模式，從源頭減少海洋污染。讓企業在追求經濟發展的同時，也能為保護海洋環境盡一份心力，共同為下一代守護湛藍海洋。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 棲地關注 -->
+                <div class="intro-item" id="intro-longterm-habitat">
+                    <div class="intro-image"></div>
+                    <div class="intro-text">
+                        <h2>棲地關注</h2>
+                        <p>
+                            棲地關注專案著重於生態棲地的保護、復育與永續經營，協助企業參與在地生態保育，創造人與自然和諧共存的環境。透過重要棲地生態調查監測、棲地復育營造、原生物種保育、外來入侵種移除管理等專業服務，結合企業資源與科學技術，共同守護台灣珍貴的生態棲地。透過企業認養棲地的長期經營模式，不僅維護生物多樣性，更能展現企業對環境永續的實質承諾。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 志工體驗內容區 -->
+        <div class="content-section" id="content-volunteer">
+            <div class="tab-menu">
+                <div class="tab-item active" onclick="switchActivity('volunteer', 'habitat-maintain')">
+                    棲地營造與維護
+                </div>
+                <div class="tab-item" onclick="switchActivity('volunteer', 'invasive')">
+                    外來種移除
+                </div>
+                <div class="tab-item" onclick="switchActivity('volunteer', 'trail')">
+                    步道維護
+                </div>
+                <div class="tab-item" onclick="switchActivity('volunteer', 'species')">
+                    物種守護
+                </div>
+                <div class="tab-item" onclick="switchActivity('volunteer', 'river')">
+                    淨溪
+                </div>
+                <div class="tab-item" onclick="switchActivity('volunteer', 'beach')">
+                    淨灘
+                </div>
+            </div>
+
+            <div class="activity-intro">
+                <!-- 棲地營造與維護 -->
+                <div class="intro-item active" id="intro-volunteer-habitat-maintain">
+                    <div class="intro-image"></div>
+                    <div class="intro-text">
+                        <h2>棲地營造與維護</h2>
+                        <p>
+                            參與棲地營造與維護活動，親手打造適合野生動植物生存的環境。透過原生植物種植培育、棲地環境整理維護、生態池營造管理等實際行動，學習生態保育的重要性與實務技巧。適合企業團隊建立活動，在付出勞力的同時，培養團隊合作精神，並為環境盡一份心力。活動過程中將有專業生態導覽，深入了解台灣本土生態系統的運作與保育價值。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 外來種移除 -->
+                <div class="intro-item" id="intro-volunteer-invasive">
+                    <div class="intro-image"></div>
+                    <div class="intro-text">
+                        <h2>外來種移除</h2>
+                        <p>
+                            外來入侵種對本土生態造成嚴重威脅，透過移除行動保護原生物種的生存空間，維護生態平衡。活動包含外來植物辨識移除、入侵種動物捕捉處理、移除區域後續監測等工作。活動富有挑戰性與成就感，讓參與者深刻理解外來種對生態系統的影響，學習保育的實際做法。每一次的移除行動都是為台灣本土生態系統健康所付出的努力，具有重要的保育意義。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 步道維護 -->
+                <div class="intro-item" id="intro-volunteer-trail">
+                    <div class="intro-image"></div>
+                    <div class="intro-text">
+                        <h2>步道維護</h2>
+                        <p>
+                            維護山林步道，確保民眾能安全地親近自然，同時減少人為活動對自然環境的衝擊。工作內容包括步道清理整修、指示牌安裝維護、排水系統疏通、步道安全巡查等。在美麗的山林中進行有意義的工作，享受大自然的同時，也為其他山友創造更好的環境。透過實際參與，了解步道維護的重要性，學習如何在使用自然資源的同時，保護山林環境的永續發展。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 物種守護 -->
+                <div class="intro-item" id="intro-volunteer-species">
+                    <div class="intro-image"></div>
+                    <div class="intro-text">
+                        <h2>物種守護</h2>
+                        <p>
+                            參與珍稀物種的保育工作，協助生態調查、棲地維護，為瀕危物種的存續盡一份力量。活動內容包含物種族群調查記錄、棲地環境監測、保育巡護工作、物種食草或食源植物種植等。深入了解台灣特有物種的生態習性，參與第一線的保育工作，見證生命的珍貴與脆弱。每一次的守護行動都可能成為物種延續的關鍵力量，具有重大的保育價值與意義。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 淨溪 -->
+                <div class="intro-item" id="intro-volunteer-river">
+                    <div class="intro-image"></div>
+                    <div class="intro-text">
+                        <h2>淨溪</h2>
+                        <p>
+                            清理溪流中的垃圾與廢棄物，還給水域生物乾淨的家園，守護水資源與溪流生態。活動包含溪流垃圾清理、廢棄物分類統計、溪流水質檢測、溪流生態觀察等內容。在清澈的溪水旁工作，親身體驗環境保護的重要性，為河川生態系統的健康貢獻心力。透過實際參與，了解水資源保育的重要性，學習如何從日常生活中減少對水環境的污染與破壞。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 淨灘 -->
+                <div class="intro-item" id="intro-volunteer-beach">
+                    <div class="intro-image"></div>
+                    <div class="intro-text">
+                        <h2>淨灘</h2>
+                        <p>
+                            清理海灘廢棄物，保護海洋生態，透過實際行動了解海洋污染的嚴重性。活動內容包括海灘垃圾清理、海洋廢棄物分類統計、海洋垃圾來源分析、海洋生態教育等。在美麗的海岸線上，與夥伴一起為海洋環境努力，體會每個人都能為地球做出改變。透過淨灘活動深刻認識海洋污染問題，學習減塑生活的實踐方法，從源頭減少海洋廢棄物的產生。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 推廣邀約內容區 -->
+        <div class="content-section" id="content-promotion">
+            <div class="promotion-content">
+                <h2>推廣邀約</h2>
+                <div class="promotion-text">
+                    <p>
+                        環境守護是一個長期的生活實踐過程，荒野保護協會致力於創造更低的門檻，
+                        讓每一個個人、團體都可以是環境保護的參與者，使其成為一個長期的社會關懷運動。
+                    </p>
+                    <p>
+                        荒野保護協會在全台設立11個分會，致力於守護台灣自然棲地，
+                        包括海洋、海岸、濕地、河口、河流、湖泊、埤塘、森林、高山、野地、農田、公園等，都是我們關注的範圍。
+                    </p>
+                    <p>
+                        從高山、海洋到城市，每一個棲地都具備它獨特的重要性，
+                        除了提供各式各樣生物棲息，並且具有調節氣候、淨化水源、防洪保水等重要防護作用。
+                    </p>
+                    <p>
+                        守護棲地就是保護我們家園，並降低災害的衝擊，
+                        這是一場刻不容緩的行動。
+                    </p>
+                    <p class="highlight-text">
+                        邀請您參與行動，與荒野同行。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 篩選區域（僅志工體驗顯示） -->
+        <div class="filter-section" id="filterSection" style="display: none;">
+            <h3 class="filter-title">志工活動查詢</h3>
+            <div class="filter-bar">
+                <span class="filter-label">縣市：</span>
+                <select class="filter-select" id="cityFilter" onchange="filterActivities()">
+                    <option value="all">全部縣市</option>
+                    <option value="台北市">台北市</option>
+                    <option value="新北市">新北市</option>
+                    <option value="桃園市">桃園市</option>
+                    <option value="台中市">台中市</option>
+                    <option value="台南市">台南市</option>
+                    <option value="高雄市">高雄市</option>
+                    <option value="宜蘭縣">宜蘭縣</option>
+                    <option value="花蓮縣">花蓮縣</option>
+                    <option value="台東縣">台東縣</option>
+                </select>
+
+                <span class="filter-label">類型：</span>
+                <select class="filter-select" id="typeFilter" onchange="filterActivities()">
+                    <option value="all">全部類型</option>
+                    <option value="棲地營造與維護">棲地營造與維護</option>
+                    <option value="外來種移除">外來種移除</option>
+                    <option value="步道維護">步道維護</option>
+                    <option value="物種守護">物種守護</option>
+                    <option value="淨溪">淨溪</option>
+                    <option value="淨灘">淨灘</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 卡片列表（僅志工體驗顯示） -->
+        <div class="cards-container" id="cardsContainer" style="display: none;">
+            <!-- 卡片將由 JavaScript 動態生成 -->
+        </div>
+    </div>
+
+    <script>
+        // 志工活動資料
+        const volunteerActivities = [
+            {
+                id: 1,
+                title: "陽明山國家公園棲地復育",
+                city: "台北市",
+                type: "棲地營造與維護",
+                date: "2025-01-15",
+                description: "協助陽明山國家公園進行原生植物種植，營造適合野生動物棲息的環境，學習生態復育技術。"
+            },
+            {
+                id: 2,
+                title: "大安森林公園生態池維護",
+                city: "台北市",
+                type: "棲地營造與維護",
+                date: "2025-01-20",
+                description: "維護都市綠地生態池，清理水生植物，觀察都市生態系統，為市民創造親近自然的空間。"
+            },
+            {
+                id: 3,
+                title: "福山植物園外來種清除",
+                city: "新北市",
+                type: "外來種移除",
+                date: "2025-01-18",
+                description: "清除小花蔓澤蘭等外來入侵植物，保護原生植物生長空間，維護森林生態平衡。"
+            },
+            {
+                id: 4,
+                title: "烏來瀑布步道整修",
+                city: "新北市",
+                type: "步道維護",
+                date: "2025-01-22",
+                description: "修復步道損壞路段，清理步道兩旁雜草，確保遊客安全，維護步道周邊環境。"
+            },
+            {
+                id: 5,
+                title: "翡翠樹蛙棲地守護",
+                city: "新北市",
+                type: "物種守護",
+                date: "2025-02-05",
+                description: "觀察記錄翡翠樹蛙族群，維護其棲息環境，參與台灣特有種保育的第一線工作。"
+            },
+            {
+                id: 6,
+                title: "大漢溪河濱淨溪活動",
+                city: "新北市",
+                type: "淨溪",
+                date: "2025-02-10",
+                description: "清理大漢溪河濱垃圾，進行水質檢測，了解河川污染現況，推廣水資源保育觀念。"
+            },
+            {
+                id: 7,
+                title: "石門水庫集水區棲地維護",
+                city: "桃園市",
+                type: "棲地營造與維護",
+                date: "2025-01-25",
+                description: "維護水庫集水區森林環境，種植原生樹種，保護水源地生態，確保水質安全。"
+            },
+            {
+                id: 8,
+                title: "拉拉山步道清理維護",
+                city: "桃園市",
+                type: "步道維護",
+                date: "2025-02-01",
+                description: "清理拉拉山神木步道，修復步道設施，讓遊客能安全欣賞千年神木的壯麗。"
+            },
+            {
+                id: 9,
+                title: "永安漁港淨灘行動",
+                city: "桃園市",
+                type: "淨灘",
+                date: "2025-02-08",
+                description: "清理永安漁港海灘廢棄物，統計海洋垃圾類型，宣導海洋保育與減塑理念。"
+            },
+            {
+                id: 10,
+                title: "高美濕地外來種移除",
+                city: "台中市",
+                type: "外來種移除",
+                date: "2025-01-28",
+                description: "移除濕地內的互花米草等外來植物，保護招潮蟹等本土物種的生存環境。"
+            },
+            {
+                id: 11,
+                title: "大雪山步道維護體驗",
+                city: "台中市",
+                type: "步道維護",
+                date: "2025-02-12",
+                description: "維護大雪山森林遊樂區步道，在高山環境中學習步道維護技巧，體驗山林保育工作。"
+            },
+            {
+                id: 12,
+                title: "櫻花鉤吻鮭保育行動",
+                city: "台中市",
+                type: "物種守護",
+                date: "2025-02-15",
+                description: "協助櫻花鉤吻鮭棲地維護，參與族群監測調查，了解台灣國寶魚的保育現況。"
+            },
+            {
+                id: 13,
+                title: "四草綠色隧道生態維護",
+                city: "台南市",
+                type: "棲地營造與維護",
+                date: "2025-02-03",
+                description: "維護紅樹林生態環境，清理水道，觀察紅樹林生物多樣性，保護獨特的濕地生態。"
+            },
+            {
+                id: 14,
+                title: "曾文溪口黑面琵鷺守護",
+                city: "台南市",
+                type: "物種守護",
+                date: "2025-01-30",
+                description: "觀察記錄黑面琵鷺族群，維護其棲息濕地，參與國際級保育鳥類的守護工作。"
+            },
+            {
+                id: 15,
+                title: "二仁溪淨溪環保行動",
+                city: "台南市",
+                type: "淨溪",
+                date: "2025-02-18",
+                description: "清理二仁溪沿岸垃圾，見證從污染河川到生態復育的轉變，學習河川保育的重要性。"
+            },
+            {
+                id: 16,
+                title: "柴山自然公園步道整修",
+                city: "高雄市",
+                type: "步道維護",
+                date: "2025-02-06",
+                description: "維護柴山登山步道，清理路徑，保護都會區珍貴的自然綠地，維持步道安全。"
+            },
+            {
+                id: 17,
+                title: "旗津海岸淨灘活動",
+                city: "高雄市",
+                type: "淨灘",
+                date: "2025-02-14",
+                description: "清理旗津海水浴場沙灘，分類統計海洋廢棄物，推廣海洋環境教育與保育觀念。"
+            },
+            {
+                id: 18,
+                title: "壽山台灣獼猴棲地維護",
+                city: "高雄市",
+                type: "物種守護",
+                date: "2025-02-20",
+                description: "維護台灣獼猴棲息環境，協助人猴衝突預防宣導，保護台灣特有種靈長類動物。"
+            },
+            {
+                id: 19,
+                title: "冬山河親水公園生態營造",
+                city: "宜蘭縣",
+                type: "棲地營造與維護",
+                date: "2025-02-07",
+                description: "營造水岸棲地環境，種植水生植物，創造豐富的水域生態系統。"
+            },
+            {
+                id: 20,
+                title: "南澳南溪淨溪行動",
+                city: "宜蘭縣",
+                type: "淨溪",
+                date: "2025-02-22",
+                description: "清理南澳南溪溪谷垃圾，保護原始溪流生態，維護野溪環境的純淨與美麗。"
+            },
+            {
+                id: 21,
+                title: "太魯閣步道維護志工",
+                city: "花蓮縣",
+                type: "步道維護",
+                date: "2025-02-11",
+                description: "維護太魯閣國家公園步道系統，在壯麗山水間進行步道修繕與環境維護工作。"
+            },
+            {
+                id: 22,
+                title: "七星潭淨灘守護行動",
+                city: "花蓮縣",
+                type: "淨灘",
+                date: "2025-02-16",
+                description: "清理七星潭礫灘，保護東海岸美麗的海岸線，守護太平洋的湛藍海洋。"
+            },
+            {
+                id: 23,
+                title: "池上環圳步道清理",
+                city: "台東縣",
+                type: "步道維護",
+                date: "2025-02-09",
+                description: "維護池上環圳步道，保持田園風光的美麗景觀，維護鄉村生態步道環境。"
+            },
+            {
+                id: 24,
+                title: "杉原灣珊瑚礁守護",
+                city: "台東縣",
+                type: "物種守護",
+                date: "2025-02-25",
+                description: "監測珊瑚礁生態系統，清理海洋廢棄物，保護珍貴的海洋生物棲息地。"
+            }
+        ];
+
+        let currentType = 'longterm';
+
+        // 初始化頁面
+        function init() {
+            // 預設不顯示篩選和卡片
+        }
+
+        // 切換類型（中長期專案 / 志工體驗 / 推廣邀約）
+        function switchType(type) {
+            currentType = type;
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-type="${type}"]`).classList.add('active');
+
+            // 切換內容區域
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`content-${type}`).classList.add('active');
+
+            // 顯示/隱藏篩選和卡片列表（僅志工體驗顯示）
+            if (type === 'volunteer') {
+                document.getElementById('filterSection').style.display = 'block';
+                document.getElementById('cardsContainer').style.display = 'grid';
+                renderCards(volunteerActivities);
+            } else {
+                document.getElementById('filterSection').style.display = 'none';
+                document.getElementById('cardsContainer').style.display = 'none';
+            }
+        }
+
+        // 切換活動選單
+        function switchActivity(section, activityId) {
+            // 更新標籤項目狀態
+            const tabItems = document.querySelectorAll(`#content-${section} .tab-item`);
+            tabItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 切換介紹內容
+            const introItems = document.querySelectorAll(`#content-${section} .intro-item`);
+            introItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            document.getElementById(`intro-${section}-${activityId}`).classList.add('active');
+        }
+
+        // 篩選活動
+        function filterActivities() {
+            const cityFilter = document.getElementById('cityFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+
+            let filtered = volunteerActivities.filter(activity => {
+                const cityMatch = cityFilter === 'all' || activity.city === cityFilter;
+                const typeMatch = typeFilter === 'all' || activity.type === typeFilter;
+                return cityMatch && typeMatch;
+            });
+
+            renderCards(filtered);
+        }
+
+        // 渲染卡片
+        function renderCards(data) {
+            const container = document.getElementById('cardsContainer');
+            
+            if (data.length === 0) {
+                container.innerHTML = '<div class="no-results">找不到符合條件的志工活動</div>';
+                return;
+            }
+
+            container.innerHTML = data.map(activity => `
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="card-title">${activity.title}</h3>
+                        <div class="card-meta">
+                            <span>${activity.city}</span>
+                            <span>${activity.type}</span>
+                            <span>${activity.date}</span>
+                        </div>
+                        <p class="card-description">${activity.description}</p>
+                        <a href="detail.html?id=${activity.id}" class="card-button">更多詳情 →</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 頁面載入時初始化
+        init();
+    </script>
+</body>
+</html>
