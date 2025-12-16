@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>推廣邀約</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        /* Banner 區域 */
+        .banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .banner h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 切換按鈕區域 */
+        .toggle-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+
+        .toggle-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border: 3px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #764ba2;
+        }
+
+        /* 活動介紹區域 */
+        .intro-section {
+            padding: 40px;
+            background: #fff;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .intro-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .intro-content.active {
+            display: block;
+        }
+
+        .intro-content h2 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .intro-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #495057;
+        }
+
+        /* 篩選 Bar */
+        .filter-bar {
+            padding: 30px 40px;
+            background: #f8f9fa;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            color: #495057;
+            font-size: 16px;
+        }
+
+        .filter-select {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* 卡片列表 */
+        .cards-container {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid #e9ecef;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #212529;
+            margin-bottom: 10px;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-description {
+            font-size: 16px;
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+            font-size: 18px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .banner h1 {
+                font-size: 32px;
+            }
+
+            .toggle-buttons {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .toggle-btn {
+                width: 100%;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Banner 區域 -->
+        <div class="banner">
+            <h1>🎯 推廣邀約</h1>
+        </div>
+
+        <!-- 切換按鈕區域 -->
+        <div class="toggle-buttons">
+            <button class="toggle-btn active" data-type="outdoor" onclick="switchType('outdoor')">
+                🌳 戶外推廣
+            </button>
+            <button class="toggle-btn" data-type="indoor" onclick="switchType('indoor')">
+                🏢 室內推廣
+            </button>
+        </div>
+
+        <!-- 活動介紹區域 -->
+        <div class="intro-section">
+            <div class="intro-content active" id="intro-outdoor">
+                <h2>🌳 戶外推廣活動介紹</h2>
+                <p>
+                    戶外推廣活動提供最直接的品牌體驗！我們在各大商圈、公園、市集等人潮聚集地點，
+                    透過互動式攤位、試用體驗、遊戲活動等方式，讓消費者近距離接觸您的品牌。
+                    適合產品發表、試吃試用、品牌宣傳等多元需求，創造難忘的品牌印象。
+                </p>
+            </div>
+            <div class="intro-content" id="intro-indoor">
+                <h2>🏢 室內推廣活動介紹</h2>
+                <p>
+                    室內推廣活動在舒適的環境中進行深度互動！我們在百貨公司、購物中心、商場等室內場域，
+                    提供專業的展示空間和完善的設備支援。適合精緻產品展示、講座活動、VIP體驗會等，
+                    在優質環境中提升品牌形象，創造高品質的消費者體驗。
+                </p>
+            </div>
+        </div>
+
+        <!-- 篩選 Bar -->
+        <div class="filter-bar">
+            <span class="filter-label">📍 縣市：</span>
+            <select class="filter-select" id="cityFilter" onchange="filterActivities()">
+                <option value="all">全部縣市</option>
+                <option value="台北市">台北市</option>
+                <option value="新北市">新北市</option>
+                <option value="桃園市">桃園市</option>
+                <option value="台中市">台中市</option>
+                <option value="台南市">台南市</option>
+                <option value="高雄市">高雄市</option>
+            </select>
+
+            <span class="filter-label">🎪 類型：</span>
+            <select class="filter-select" id="typeFilter" onchange="filterActivities()">
+                <option value="all">全部類型</option>
+                <option value="outdoor">戶外推廣</option>
+                <option value="indoor">室內推廣</option>
+            </select>
+        </div>
+
+        <!-- 卡片列表 -->
+        <div class="cards-container" id="cardsContainer">
+            <!-- 卡片將由 JavaScript 動態生成 -->
+        </div>
+    </div>
+
+    <script>
+        // 活動資料
+        const activities = [
+            {
+                id: 1,
+                title: "信義商圈快閃體驗",
+                city: "台北市",
+                type: "outdoor",
+                description: "在台北最熱鬧的信義商圈設置互動攤位，吸引大量年輕族群參與體驗。提供試用、拍照打卡等多元互動。"
+            },
+            {
+                id: 2,
+                title: "大安森林公園市集",
+                city: "台北市",
+                type: "outdoor",
+                description: "結合週末市集活動，在綠意盎然的環境中推廣健康生活理念，適合親子家庭客群。"
+            },
+            {
+                id: 3,
+                title: "板橋大遠百專櫃",
+                city: "新北市",
+                type: "indoor",
+                description: "百貨公司一樓黃金地段，提供精緻的品牌形象展示空間，鎖定高消費力客群。"
+            },
+            {
+                id: 4,
+                title: "淡水老街戶外活動",
+                city: "新北市",
+                type: "outdoor",
+                description: "觀光熱點人潮洶湧，適合觀光商品或文創品牌推廣，創造話題與打卡熱點。"
+            },
+            {
+                id: 5,
+                title: "桃園統領百貨快閃店",
+                city: "桃園市",
+                type: "indoor",
+                description: "桃園地區指標性百貨，提供完整的店中店體驗，適合新品發表與深度試用。"
+            },
+            {
+                id: 6,
+                title: "中壢夜市推廣活動",
+                city: "桃園市",
+                type: "outdoor",
+                description: "夜市人潮眾多，晚間時段推廣效果佳，適合美食、飲品等即時消費商品。"
+            },
+            {
+                id: 7,
+                title: "台中新光三越體驗會",
+                city: "台中市",
+                type: "indoor",
+                description: "中部地區頂級百貨，舉辦VIP專屬體驗會，提升品牌高端形象。"
+            },
+            {
+                id: 8,
+                title: "逢甲夜市路演活動",
+                city: "台中市",
+                type: "outdoor",
+                description: "全台最知名夜市之一，年輕族群聚集，適合潮流品牌與創新產品推廣。"
+            },
+            {
+                id: 9,
+                title: "台南新光三越專櫃",
+                city: "台南市",
+                type: "indoor",
+                description: "台南核心商圈百貨公司，提供舒適的室內展示空間，吸引在地消費者。"
+            },
+            {
+                id: 10,
+                title: "安平老街文創市集",
+                city: "台南市",
+                type: "outdoor",
+                description: "古蹟觀光景點結合文創市集，適合文化創意商品與在地特色品牌。"
+            },
+            {
+                id: 11,
+                title: "高雄夢時代購物中心",
+                city: "高雄市",
+                type: "indoor",
+                description: "南台灣最大購物中心，提供大型活動場地，適合品牌大型發表會。"
+            },
+            {
+                id: 12,
+                title: "駁二藝術特區市集",
+                city: "高雄市",
+                type: "outdoor",
+                description: "藝文氣息濃厚的戶外空間，吸引文青族群，適合設計品牌與文創商品。"
+            }
+        ];
+
+        let currentType = 'outdoor';
+
+        // 初始化頁面
+        function init() {
+            renderCards(activities);
+        }
+
+        // 切換類型
+        function switchType(type) {
+            currentType = type;
+            
+            // 更新按鈕狀態
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-type="${type}"]`).classList.add('active');
+
+            // 更新介紹內容
+            document.querySelectorAll('.intro-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`intro-${type}`).classList.add('active');
+
+            // 篩選器不自動改變，保持獨立
+        }
+
+        // 篩選活動
+        function filterActivities() {
+            const cityFilter = document.getElementById('cityFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+
+            let filtered = activities.filter(activity => {
+                const cityMatch = cityFilter === 'all' || activity.city === cityFilter;
+                const typeMatch = typeFilter === 'all' || activity.type === typeFilter;
+                return cityMatch && typeMatch;
+            });
+
+            renderCards(filtered);
+
+            // 篩選器獨立運作，不影響按鈕狀態
+        }
+
+        // 渲染卡片
+        function renderCards(data) {
+            const container = document.getElementById('cardsContainer');
+            
+            if (data.length === 0) {
+                container.innerHTML = '<div class="no-results">😔 找不到符合條件的推廣活動</div>';
+                return;
+            }
+
+            container.innerHTML = data.map(activity => `
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="card-title">${activity.title}</h3>
+                        <div class="card-meta">
+                            <span>📍 ${activity.city}</span>
+                            <span>🎪 ${activity.type === 'outdoor' ? '戶外' : '室內'}</span>
+                        </div>
+                        <p class="card-description">${activity.description}</p>
+                        <a href="detail.html?id=${activity.id}" class="card-button">更多詳情 →</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 頁面載入時初始化
+        init();
+    </script>
+</body>
+</html>
