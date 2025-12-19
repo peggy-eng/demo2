@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -13,9 +14,27 @@
 
         body {
             font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background: linear-gradient(135deg, #7fa68a 0%, #6b8e7a 100%);
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 400px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><path d="M150 20 C160 25, 165 30, 170 40 L175 60 C180 75, 185 85, 190 100 L195 130 C198 150, 200 165, 202 180 L205 210 C206 230, 205 245, 203 260 L200 285 C195 305, 188 320, 180 335 L170 355 C160 370, 148 380, 140 385 L130 388 C120 390, 110 388, 102 383 L92 375 C82 365, 75 350, 70 335 L62 310 C58 290, 56 270, 56 250 L57 220 C58 200, 60 180, 64 165 L70 140 C75 120, 82 105, 90 90 L100 70 C108 55, 118 42, 128 32 L140 22 C143 20, 146 19, 150 20 Z M180 100 L185 110 C188 118, 190 125, 190 135 L188 150 C186 158, 182 165, 178 170 L172 175 C168 178, 163 180, 158 180 L150 178 C145 176, 142 172, 140 168 L138 160 C137 155, 138 150, 140 145 L145 135 C150 128, 156 122, 163 118 L172 112 C175 110, 178 108, 180 100 Z" fill="rgba(107, 142, 122, 0.08)" stroke="rgba(107, 142, 122, 0.15)" stroke-width="1"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .container {
@@ -25,14 +44,33 @@
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
+            position: relative;
+            z-index: 1;
         }
 
         /* Banner 區域 */
         .banner {
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background: linear-gradient(135deg, #7fa68a 0%, #6b8e7a 100%);
             padding: 60px 40px;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 250px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 250"><path d="M100 10 C105 12, 108 15, 112 20 L115 30 C118 38, 120 45, 122 52 L124 68 C126 78, 127 86, 128 94 L129 110 C129 120, 128 128, 127 136 L125 149 C122 159, 118 167, 113 175 L107 186 C101 194, 94 199, 88 202 L82 204 C76 205, 70 204, 65 201 L58 196 C52 191, 47 183, 43 175 L38 162 C36 152, 35 142, 35 131 L36 115 C37 105, 38 95, 40 87 L43 73 C46 63, 50 55, 55 47 L61 37 C65 29, 71 22, 77 17 L85 12 C88 10, 92 9, 100 10 Z" fill="rgba(255, 255, 255, 0.08)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.5;
+            pointer-events: none;
         }
 
         .banner h1 {
@@ -55,24 +93,24 @@
             padding: 15px 40px;
             font-size: 18px;
             font-weight: bold;
-            border: 3px solid #2ecc71;
+            border: 3px solid #7fa68a;
             background: white;
-            color: #2ecc71;
+            color: #6b8e7a;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.2);
+            box-shadow: 0 4px 15px rgba(127, 166, 138, 0.2);
         }
 
         .toggle-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.3);
+            box-shadow: 0 6px 20px rgba(127, 166, 138, 0.3);
         }
 
         .toggle-btn.active {
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background: linear-gradient(135deg, #7fa68a 0%, #6b8e7a 100%);
             color: white;
-            border-color: #27ae60;
+            border-color: #6b8e7a;
         }
 
         /* 活動選單和介紹區域 */
@@ -109,13 +147,13 @@
         }
 
         .tab-item:hover {
-            background: #e8f5e9;
+            background: #e8f0ec;
         }
 
         .tab-item.active {
-            background: #2ecc71;
+            background: #7fa68a;
             color: white;
-            border-color: #27ae60;
+            border-color: #6b8e7a;
             font-weight: bold;
         }
 
@@ -138,13 +176,30 @@
         .intro-image {
             flex: 0 0 400px;
             height: 300px;
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background: linear-gradient(135deg, #7fa68a 0%, #6b8e7a 100%);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 200px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 200"><path d="M75 10 C80 12, 82 15, 85 20 L87 30 C90 38, 92 45, 93 52 L95 68 C96 78, 97 86, 97 94 L98 110 C98 120, 97 128, 96 136 L94 149 C92 159, 89 167, 85 175 L80 186 C76 194, 71 199, 66 202 L61 204 C57 205, 53 204, 49 201 L44 196 C39 191, 35 183, 32 175 L28 162 C27 152, 26 142, 26 131 L27 115 C28 105, 29 95, 31 87 L33 73 C35 63, 38 55, 42 47 L46 37 C49 29, 53 22, 58 17 L64 12 C67 10, 70 9, 75 10 Z" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.6;
         }
 
         .intro-text {
@@ -152,7 +207,7 @@
         }
 
         .intro-item h2 {
-            color: #2ecc71;
+            color: #6b8e7a;
             font-size: 28px;
             margin-bottom: 20px;
         }
@@ -171,7 +226,7 @@
         }
 
         .promotion-content h2 {
-            color: #2ecc71;
+            color: #6b8e7a;
             font-size: 36px;
             text-align: center;
             margin-bottom: 40px;
@@ -181,7 +236,7 @@
             background: #f8f9fa;
             padding: 40px;
             border-radius: 15px;
-            border-left: 5px solid #2ecc71;
+            border-left: 5px solid #7fa68a;
         }
 
         .promotion-text p {
@@ -198,7 +253,7 @@
         .highlight-text {
             font-size: 20px !important;
             font-weight: bold;
-            color: #2ecc71 !important;
+            color: #6b8e7a !important;
             text-align: center;
             margin-top: 30px !important;
         }
@@ -206,7 +261,7 @@
         /* 分隔線 */
         .divider {
             height: 2px;
-            background: linear-gradient(90deg, transparent, #2ecc71, transparent);
+            background: linear-gradient(90deg, transparent, #7fa68a, transparent);
             margin: 40px 0;
         }
 
@@ -219,7 +274,7 @@
         .filter-title {
             font-size: 24px;
             font-weight: bold;
-            color: #2ecc71;
+            color: #6b8e7a;
             margin-bottom: 20px;
         }
 
@@ -249,8 +304,8 @@
 
         .filter-select:focus {
             outline: none;
-            border-color: #2ecc71;
-            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+            border-color: #7fa68a;
+            box-shadow: 0 0 0 3px rgba(127, 166, 138, 0.1);
         }
 
         /* 卡片列表 */
@@ -272,7 +327,7 @@
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+            box-shadow: 0 10px 30px rgba(127, 166, 138, 0.3);
         }
 
         .card-content {
@@ -311,7 +366,7 @@
         .card-button {
             display: inline-block;
             padding: 12px 30px;
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background: linear-gradient(135deg, #7fa68a 0%, #6b8e7a 100%);
             color: white;
             text-decoration: none;
             border-radius: 25px;
@@ -323,7 +378,7 @@
 
         .card-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+            box-shadow: 0 5px 15px rgba(127, 166, 138, 0.4);
         }
 
         .no-results {
